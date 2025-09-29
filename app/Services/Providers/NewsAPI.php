@@ -4,6 +4,7 @@ namespace App\Services\Providers;
 
 use App\Contracts\NewsProviderInterface;
 use App\Enum\NewsSourcesEnum;
+use App\Models\NewsArticle;
 use GuzzleHttp\Client;
 
 class NewsAPI implements NewsProviderInterface
@@ -35,34 +36,25 @@ class NewsAPI implements NewsProviderInterface
                 ]
             ]
         );
-        return json_decode($response->getBody(), true);
-    }
 
-    public function storeArticles($response)
-    {
+        $response = json_decode($response->getBody(), true)['articles'];
 
-        [
-            'author' => $response['author'],
-            'title' => $response['title'],
-            'description' => $response['description'],
-            'category' => $response['category'],
-            'url' => $response['url'],
-            'urlToImage' => $response['urlToImage'],
-            'source' => NewsSourcesEnum::NewsAPI,
-            'provider_source' => $response['source'],       //json
-            'publishedAt' => $response['publishedAt'],
-            'content' => $response['content']
-        ];
-    // "source": {
-    //     "id": "the-verge",
-    //     "name": "The Verge"
-    //   },
-    //   "author": "Mia Sato",
-    //   "title": "Reddit is testing a way to read articles without leaving the app",
-    //   "description": "As AI tools gobble up news publishers’...,
-    //   "url": "https://www.theverge.com/news/775722/reddit-news-publishers-beta-articles-analytics",
-    //   "urlToImage": "https://platform.theverge.com/wp-content/uploads/sites/2/2025/08/STK115_Reddit...,
-    //   "publishedAt": "2025-09-10T16:52:26Z",
-    //   "content": "\u003Cul\u003E\u003Cli\u003E\u003C/li\u003E\u003Cli\u003E\u003C/li\u003...
+        foreach ($response as $article) {
+
+            $articles[] = [
+                'author' => $article['author'],
+                'provider_id' => $article['url'],
+                'title' => $article['title'],
+                'description' => $article['description'],
+                'category' => $article['source']['name'],
+                'url' => $article['url'],
+                'urlToImage' => $article['urlToImage'],
+                'source' => NewsSourcesEnum::NewsAPI,
+                'publishedAt' => $article['publishedAt'],
+                'content' => $article['content']
+            ];
+        }
+
+        return $articles;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Contracts\NewsProviderInterface;
+use App\Models\NewsArticle;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -17,15 +19,19 @@ class NewsAggregator
     public function fetchArticlesAndSave()
     {
         foreach ($this->providers as $provider) {
-            
-            $articles = $provider->fetch();
+            try {
+                $articles = $provider->fetch();
 
-            foreach ($articles as $article) {
-                DB::table('news_articles')->updateOrInsert(
-                    ['title' => $article['title']],
-                    $article
-                );
-            } 
+                foreach ($articles as $article) {
+                    DB::table('news_articles')->updateOrInsert(     
+                        ['provider_id' => $article['provider_id']],
+                        $article,
+                    );
+                }
+            } catch (\Throwable $th) {
+                info("Error running insert statement ". $th->getMessage());
+            }
+
         }
     }
 }

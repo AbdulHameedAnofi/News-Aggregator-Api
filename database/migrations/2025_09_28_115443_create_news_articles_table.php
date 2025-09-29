@@ -14,7 +14,9 @@ return new class extends Migration
     {
         Schema::create('news_articles', function (Blueprint $table) {
             $table->id();
+            $table->string('provider_id')->unique();
             $table->string('title');
+            $table->string('url')->unique();
             $table->string('headline')->nullable();
             $table->json('keywords')->nullable();
             $table->json('multimedia')->nullable();
@@ -26,7 +28,6 @@ return new class extends Migration
             $table->string('snippet')->nullable();
             $table->string('subsection_name')->nullable();
             $table->text('description')->nullable();
-            $table->string('url');
             $table->string('urlToImage')->nullable();
             $table->string('type_of_material')->nullable();
             $table->string('provider_source')->nullable();

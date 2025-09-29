@@ -4,7 +4,9 @@ namespace App\Services\Providers;
 
 use App\Contracts\NewsProviderInterface;
 use App\Enum\NewsSourcesEnum;
+use App\Models\NewsArticle;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\DB;
 
 class NewYorkTimes implements NewsProviderInterface
 {
@@ -32,64 +34,31 @@ class NewYorkTimes implements NewsProviderInterface
                 ]
             ]
         );
-        return json_decode($response->getBody(), true);        
-    }
+        
+        $response = json_decode($response->getBody(), true)['response']['docs'];
 
-    public function storeArticles($article)
-    {
+        foreach ($response as $article) {
+            $articles[] = [
+                'provider_id' => $article['_id'],
+                'title'=> $article['headline']['main'],
+                'description' => $article['abstract'],
+                'author' => $article['byline']['original'],
+                'headline' => $article['headline']['print_headline'],
+                // 'keywords' => $article['keywords'],               //json
+                // 'multimedia' => $article['multimedia'],           //json
+                'news_desk' => $article['news_desk'],
+                'category' => $article['section_name'],
+                'snippet' => $article['snippet'],
+                'subsection_name' => $article['subsection_name'],
+                'url' => $article['web_url'],
+                'word_count' => $article['word_count'],
+                'source' => NewsSourcesEnum::NewYorkTimes,
+                'type_of_material' => $article['type_of_material'],
+                'provider_source' => $article['source'],
+                'publishedAt' => $article['pub_date'],
+            ];
+        }
 
-        [
-            'id' => $article['_id'],
-            'title'=> $article['headline']['main'],
-            'description' => $article['abstract'],
-            'author' => $article['byline']['original'],
-            'headline' => $article['headline']['print_headline'],
-            'keywords' => $article['keywords'],               //json
-            'multimedia' => $article['multimedia'],           //json
-            'news_desk' => $article['news_desk'],
-            'category' => $article['section_name'],
-            'snippet' => $article['snippet'],
-            'subsection_name' => $article['subsection_name'],
-            'url' => $article['web_url'],
-            'word_count' => $article['word_count'],
-            'source' => NewsSourcesEnum::NewYorkTimes,
-            'type_of_material' => $article['type_of_material'],
-            'provider_source' => $article['source'],
-            'publishedAt' => $article['pub_date'],
-        ];
-
-        // "abstract": "Mr. Musk spent the summer at his artificial intelligence...,
-        // "byline": {
-        //   "original": "By Cade Metz, Kate Conger and Ryan Mac"
-        // },
-        // "document_type": "article",
-        // "headline": {
-        //   "main": "Since Leaving Washington, Elon Musk Has Been All In on His A.I. Company",
-        //   "kicker": "",
-        //   "print_headline": "Musk All In At A.I. Firm After Exit From D.C."
-        // },
-        // "_id": "nyt://article/3fc00f59-ffd3-5b3d-9c51-accda487eb5b",
-        // "keywords": [
-        //   {
-        //     "name": "Person",
-        //     "value": "Musk, Elon",
-        //     "rank": 1
-        //   } ...,
-        // ],
-        // "multimedia": {
-        //   "caption": "Since leaving Washington in June, Elon ...,
-        // "news_desk": "Business",
-        // "print_page": "1",
-        // "print_section": "B",
-        // "pub_date": "2025-09-18T21:44:46Z",
-        // "section_name": "Technology",
-        // "snippet": "Mr. Musk spent the summer at his artificial...,
-        // "source": "The New York Times",
-        // "subsection_name": "",
-        // "type_of_material": "News",
-        // "uri": "nyt://article/3fc00f59-ffd3-5b3d-9c51-accda487eb5b",
-        // "web_url": "https://www.nytimes.com/2025/09/18/technology/elon-musk-artificial-intelligence-xai.html",
-        // "word_count": 1681
-
+        return $articles;
     }
 }

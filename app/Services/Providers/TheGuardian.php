@@ -4,6 +4,7 @@ namespace App\Services\Providers;
 
 use App\Contracts\NewsProviderInterface;
 use App\Enum\NewsSourcesEnum;
+use App\Models\NewsArticle;
 use GuzzleHttp\Client;
 
 class TheGuardian implements NewsProviderInterface
@@ -19,7 +20,7 @@ class TheGuardian implements NewsProviderInterface
         $this->api_key = config("datasource.the_guardian.api_key");
         $this->client = new Client();
     }
-    public function fetch()
+    public function fetch(): array
     {
         $response = $this->client->get(
             $this->baseurl . 'search',
@@ -30,33 +31,21 @@ class TheGuardian implements NewsProviderInterface
                 ]
             ]
         );
-        return json_decode($response->getBody(), true);        
-    }
-
-    public function storeArticles($article)
-    {
-
-        [
-            'id' => $article['id'],
-            'title'=> $article['webTitle'],
-            'type' => $article['type'],
-            'category' => $article['sectionName'],
-            'url' => $article['webUrl'],
-            'source' => NewsSourcesEnum::TheGuardian,
-            'publishedAt' => $article['webPublicationDate'],
-        ];
-
         
-        // "id": "world/live/2025/sep/29/moldova-voters-pro-eu-government-russia-drones-europe-live",
-        // "type": "liveblog",
-        // "sectionId": "world",
-        // "sectionName": "World news",
-        // "webPublicationDate": "2025-09-29T08:08:24Z",
-        // "webTitle": "Moldova voters choose pro-EU government over Moscow-leaning alliance – Europe live",
-        // "webUrl": "https://www.theguardian.com/world/live/2025/sep/29/mol...,
-        // "apiUrl": "https://content.guardianapis.com/world/live/2025/sep/29/mo...,
-        // "isHosted": false,
-        // "pillarId": "pillar/news",
-        // "pillarName": "News"
+        $response = json_decode($response->getBody(), true)['response']['results'];
+
+        foreach ($response as $article) {
+            $articles[] = [
+                'provider_id' => $article['id'],
+                'title'=> $article['webTitle'],
+                'type' => $article['type'],
+                'category' => $article['sectionName'],
+                'url' => $article['webUrl'],
+                'source' => NewsSourcesEnum::TheGuardian,
+                'publishedAt' => $article['webPublicationDate'],
+            ];
+        }
+
+        return $articles;
     }
 }

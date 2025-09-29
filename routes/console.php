@@ -1,8 +1,21 @@
 <?php
 
+use App\Services\NewsAggregator;
+use App\Services\Providers\NewsAPI;
+use App\Services\Providers\NewYorkTimes;
+use App\Services\Providers\TheGuardian;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
+Schedule::call(function () {
+    $aggregator = new NewsAggregator([
+        new NewsAPI(),
+        new TheGuardian(),
+        new NewYorkTimes()
+    ]);
+    $aggregator->fetchArticlesAndSave();
+    return 'Articles fetched and saved successfully.';
+})
+->name('fetch:articles')
+->everyMinute();
