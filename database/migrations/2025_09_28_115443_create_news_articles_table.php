@@ -23,17 +23,17 @@ return new class extends Migration
             $table->string('news_desk')->nullable();
             $table->string('author')->nullable();
             $table->string('type')->nullable();
-            $table->enum('source', NewsSourcesEnum::all())->default(NewsSourcesEnum::NewsAPI);
+            $table->enum('source', NewsSourcesEnum::toArray())->default(NewsSourcesEnum::NEWSAPI);
             $table->string('category')->nullable();
             $table->string('snippet')->nullable();
             $table->string('subsection_name')->nullable();
             $table->text('description')->nullable();
-            $table->string('urlToImage')->nullable();
+            $table->string('url_to_image')->nullable();
             $table->string('type_of_material')->nullable();
             $table->string('provider_source')->nullable();
             $table->text('content')->nullable();
             $table->integer('word_count')->nullable();
-            $table->timestamp('publishedAt')->nullable();
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }

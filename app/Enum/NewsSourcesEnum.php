@@ -4,16 +4,16 @@ namespace App\Enum;
 
 enum NewsSourcesEnum: string
 {
-    case NewsAPI = 'NewsAPI';
-    case TheGuardian = 'The Guardian';
-    case NewYorkTimes = 'New York Times';
+    case NEWSAPI = 'news_api';
+    case THEGUARDIAN = 'the_guardian';
+    case NEWYORKTIMES = 'new_york_times';
 
-    public static function all(): array
+    public static function toArray(): array
     {
         return [
-            self::NewsAPI->value,
-            self::TheGuardian->value,
-            self::NewYorkTimes->value
+            self::NEWSAPI->value,
+            self::THEGUARDIAN->value,
+            self::NEWYORKTIMES->value
         ];
     }
 }

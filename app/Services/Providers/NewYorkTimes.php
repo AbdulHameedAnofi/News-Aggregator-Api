@@ -52,10 +52,10 @@ class NewYorkTimes implements NewsProviderInterface
                 'subsection_name' => $article['subsection_name'],
                 'url' => $article['web_url'],
                 'word_count' => $article['word_count'],
-                'source' => NewsSourcesEnum::NewYorkTimes,
+                'source' => NewsSourcesEnum::NEWYORKTIMES,
                 'type_of_material' => $article['type_of_material'],
                 'provider_source' => $article['source'],
-                'publishedAt' => $article['pub_date'],
+                'published_at' => $article['pub_date'],
             ];
         }
 

@@ -16,8 +16,8 @@ class NewsAPI implements NewsProviderInterface
 
     public function __construct()
     {
-        $this->baseurl = config("datasource.newsapi.baseurl");
-        $this->api_key = config("datasource.newsapi.api_key");
+        $this->baseurl = config("datasource.news_api.baseurl");
+        $this->api_key = config("datasource.news_api.api_key");
         $this->client = new Client();
     }
 
@@ -48,9 +48,9 @@ class NewsAPI implements NewsProviderInterface
                 'description' => $article['description'],
                 'category' => $article['source']['name'],
                 'url' => $article['url'],
-                'urlToImage' => $article['urlToImage'],
-                'source' => NewsSourcesEnum::NewsAPI,
-                'publishedAt' => $article['publishedAt'],
+                'url_to_image' => $article['urlToImage'],
+                'source' => NewsSourcesEnum::NEWSAPI,
+                'published_at' => $article['publishedAt'],
                 'content' => $article['content']
             ];
         }

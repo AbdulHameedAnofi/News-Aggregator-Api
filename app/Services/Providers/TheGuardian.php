@@ -41,8 +41,8 @@ class TheGuardian implements NewsProviderInterface
                 'type' => $article['type'],
                 'category' => $article['sectionName'],
                 'url' => $article['webUrl'],
-                'source' => NewsSourcesEnum::TheGuardian,
-                'publishedAt' => $article['webPublicationDate'],
+                'source' => NewsSourcesEnum::THEGUARDIAN,
+                'published_at' => $article['webPublicationDate'],
             ];
         }
 

@@ -13,7 +13,7 @@ return [
         "api_key" => env('THE_GUARDIAN_API_KEY', ''),
     ],
 
-    "newsapi" => [
+    "news_api" => [
         "baseurl" => "https://newsapi.org/v2/",
         "api_key" => env('NEWSAPI_API_KEY', ''),
     ],

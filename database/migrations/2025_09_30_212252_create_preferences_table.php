@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('preferences', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id')->unique();
+            $table->string('session_id')->unique();
             $table->json('sources')->nullable();
             $table->json('categories')->nullable();
             $table->json('authors')->nullable();
