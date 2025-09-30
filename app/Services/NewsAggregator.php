@@ -27,6 +27,10 @@ class NewsAggregator
                         ['provider_id' => $article['provider_id']],
                         $article,
                     );
+                    // NewsArticle::updateOrCreate(
+                    //     ['provider_id' => $article['provider_id']],
+                    //     $article
+                    // );
                 }
             } catch (\Throwable $th) {
                 info("Error running insert statement ". $th->getMessage());

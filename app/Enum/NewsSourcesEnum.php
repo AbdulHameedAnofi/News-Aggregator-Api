@@ -4,9 +4,9 @@ namespace App\Enum;
 
 enum NewsSourcesEnum: string
 {
-    case NewsAPI = 'news-api';
-    case TheGuardian = 'the-guardian';
-    case NewYorkTimes = 'new-york-times';
+    case NewsAPI = 'NewsAPI';
+    case TheGuardian = 'The Guardian';
+    case NewYorkTimes = 'New York Times';
 
     public static function all(): array
     {
