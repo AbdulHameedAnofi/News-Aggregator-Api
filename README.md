@@ -14,7 +14,7 @@ It provides endpoints for articles, categories, sources, authors, and user prefe
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/AbdulHameedAnofi/news-aggregator-api.git
+git clone https://github.com/AbdulHameedAnofi/News-Aggregator-Api.git
 cd news-aggregator-api
 ````
 
