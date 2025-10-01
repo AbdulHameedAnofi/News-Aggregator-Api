@@ -26,7 +26,10 @@ class TheGuardian implements NewsProviderInterface
             $this->baseurl . 'search',
             [
                 "query" => [
+                    'to-date' => date('Y-m-d', strtotime('-1 week')),
+                    'from-date' => date('Y-m-d', strtotime('')),
                     'api-key' => $this->api_key,
+                    // 'page-size' => 10,
                     'type' => 'article',
                 ]
             ]
@@ -43,6 +46,8 @@ class TheGuardian implements NewsProviderInterface
                 'url' => $article['webUrl'],
                 'source' => NewsSourcesEnum::THEGUARDIAN,
                 'published_at' => $article['webPublicationDate'],
+                'pillarId' => $article['pillarId'],
+                'pillarName' => $article['pillarName'],
             ];
         }
 

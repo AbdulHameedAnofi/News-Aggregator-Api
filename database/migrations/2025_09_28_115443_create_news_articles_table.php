@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('title');
             $table->string('url')->unique();
             $table->string('headline')->nullable();
-            $table->json('keywords')->nullable();
-            $table->json('multimedia')->nullable();
             $table->string('news_desk')->nullable();
             $table->string('author')->nullable();
             $table->string('type')->nullable();
@@ -32,6 +30,8 @@ return new class extends Migration
             $table->string('type_of_material')->nullable();
             $table->string('provider_source')->nullable();
             $table->text('content')->nullable();
+            $table->string('pillarId')->nullable();
+            $table->string('pillarName')->nullable();
             $table->integer('word_count')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();

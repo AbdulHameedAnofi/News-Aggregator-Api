@@ -31,8 +31,10 @@ class NewsAPI implements NewsProviderInterface
                 ],
                 "query" => [
                     'q' => 'articles',
+                    'from' => date('Y-m-d', strtotime('-1 week')),
+                    'to' => date('Y-m-d', strtotime('')),
                     'language' => 'en',
-                    'pageSize' => 10,
+                    // 'pageSize' => 10
                 ]
             ]
         );

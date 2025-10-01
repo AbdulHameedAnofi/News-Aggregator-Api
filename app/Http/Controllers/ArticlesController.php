@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Repositories\NewsArticleRepositoryInterface;
 use App\Http\Requests\GetArticlesRequest;
-use App\Models\NewsArticle;
+use App\Services\Providers\NewYorkTimes;
 use Illuminate\Support\Facades\Cache;
 
 class ArticlesController extends Controller

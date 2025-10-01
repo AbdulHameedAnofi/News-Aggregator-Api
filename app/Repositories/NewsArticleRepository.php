@@ -12,7 +12,6 @@ class NewsArticleRepository implements NewsArticleRepositoryInterface
     {
         $userPreference = $this->userPreference($session->getId());
         
-        // return Carbon::createFromFormat('d-m-Y', $data['date'])->toDateTimeString();
         $articles = NewsArticle::when(!empty($userPreference['sources']), function ($query) use ($userPreference) {
                             $query->whereIn('source', $userPreference['sources']);
                         })
@@ -25,7 +24,10 @@ class NewsArticleRepository implements NewsArticleRepositoryInterface
                         ->when(isset($data['search']), function ($query) use ($data) {
                             $query->where("title","like","%". $data['search'] ."%")
                                     ->orWhere("description","like","%". $data['search'] ."%")
-                                    ->orWhere("content","like","%". $data['search'] ."%");
+                                    ->orWhere("content","like","%". $data['search'] ."%")
+                                    ->orWhere("keyword","like","%". $data['search'] ."%")
+                                    ->orWhere("news_desk","like","%". $data['search'] ."%")
+                                    ->orWhere("headline","like","%". $data['search'] ."%");
                             })
                         ->when(isset($data['date']), function ($query) use ($data){
                             $query->whereDate('published_at', $data['date']);

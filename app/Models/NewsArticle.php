@@ -14,8 +14,6 @@ class NewsArticle extends Model
         'title',
         'author',
         'headline',
-        'keywords',
-        'multimedia',
         'news_desk',
         'type',
         'source',
@@ -29,13 +27,13 @@ class NewsArticle extends Model
         'provider_source',
         'content',
         'word_count',
+        'pillarId',
+        'pillarName',
         'published_at',
     ];
 
     protected $casts = [
         'source' => NewsSourcesEnum::class,
-        'keywords' => 'array',
-        'multimedia' => 'array',
         'published_at' => 'datetime',
     ];
 }

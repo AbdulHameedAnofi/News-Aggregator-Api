@@ -27,9 +27,9 @@ class NewYorkTimes implements NewsProviderInterface
             $this->baseurl . 'articlesearch.json',
             [
                 "query" => [
-                    'q' => 'technology',
                     'language' => 'en',
-                    'pageSize' => 10,
+                    'end_date' => date('Ymd', strtotime('-1 week')),
+                    'begin_date' => date('Ymd', strtotime('')),
                     'api-key' => $this->api_key
                 ]
             ]
@@ -44,8 +44,6 @@ class NewYorkTimes implements NewsProviderInterface
                 'description' => $article['abstract'],
                 'author' => $article['byline']['original'],
                 'headline' => $article['headline']['print_headline'],
-                // 'keywords' => $article['keywords'],               //json
-                // 'multimedia' => $article['multimedia'],           //json
                 'news_desk' => $article['news_desk'],
                 'category' => $article['section_name'],
                 'snippet' => $article['snippet'],
