@@ -1,8 +1,3 @@
-Here’s a clean **README.md draft** you can use and expand on for your news aggregator project 🚀
-
----
-
-````markdown
 # 📰 News Aggregator API
 
 A Laravel-powered API that aggregates news articles from multiple external sources into a single, unified database.  
