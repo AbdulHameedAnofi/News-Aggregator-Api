@@ -6,14 +6,13 @@ use App\Contracts\Repositories\NewsArticleRepositoryInterface;
 use App\Models\NewsArticle;
 use App\Models\Preference;
 
-use function PHPUnit\Framework\isEmpty;
-
 class NewsArticleRepository implements NewsArticleRepositoryInterface
 {
     public function getArticles(array $data, $session)
     {
         $userPreference = $this->userPreference($session->getId());
-
+        
+        // return Carbon::createFromFormat('d-m-Y', $data['date'])->toDateTimeString();
         $articles = NewsArticle::when(!empty($userPreference['sources']), function ($query) use ($userPreference) {
                             $query->whereIn('source', $userPreference['sources']);
                         })
@@ -38,7 +37,7 @@ class NewsArticleRepository implements NewsArticleRepositoryInterface
                             $query->where('source', $data['source']);
                         })
                     ->get();
-
+                    
         return $articles;
     }
 

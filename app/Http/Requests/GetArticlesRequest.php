@@ -25,9 +25,9 @@ class GetArticlesRequest extends FormRequest
     {
         return [
             'search' => 'string|nullable',
-            'source' => Rule::enum(NewsSourcesEnum::class),
+            'source' => ['string', 'nullable', Rule::enum(NewsSourcesEnum::class)],
             'category' => 'string|nullable',
-            'date' => 'date_format:d-m-Y|nullable',
+            'date' => 'date|nullable',
         ];
     }
 }

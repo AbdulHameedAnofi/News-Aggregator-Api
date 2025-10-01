@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\NewsSourcesEnum;
 use Illuminate\Database\Eloquent\Model;
 
 class NewsArticle extends Model
@@ -23,17 +24,18 @@ class NewsArticle extends Model
         'subsection_name',
         'description',
         'url',
-        'urlToImage',
+        'url_to_image',
         'type_of_material',
         'provider_source',
         'content',
         'word_count',
-        'publishedAt',
+        'published_at',
     ];
 
     protected $casts = [
+        'source' => NewsSourcesEnum::class,
         'keywords' => 'array',
         'multimedia' => 'array',
-        'publishedAt' => 'datetime',
+        'published_at' => 'datetime',
     ];
 }

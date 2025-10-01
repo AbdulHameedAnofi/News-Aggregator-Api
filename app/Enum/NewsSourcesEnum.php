@@ -16,4 +16,13 @@ enum NewsSourcesEnum: string
             self::NEWYORKTIMES->value
         ];
     }
+
+    public function label(): string
+    {
+        return match($this) {
+            self::NEWSAPI => 'News API',
+            self::THEGUARDIAN => 'The Guardian',
+            self::NEWYORKTIMES => 'New York Times',
+        };
+    }   
 }
