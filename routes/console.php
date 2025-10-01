@@ -17,4 +17,4 @@ Schedule::call(function () {
     $aggregator->fetchArticlesAndSave();
 })
 ->name('fetch:articles')
-->everyMinute();
+->hourly();
