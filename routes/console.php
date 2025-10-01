@@ -15,7 +15,6 @@ Schedule::call(function () {
         new NewYorkTimes()
     ]);
     $aggregator->fetchArticlesAndSave();
-    return 'Articles fetched and saved successfully.';
 })
 ->name('fetch:articles')
 ->everyMinute();

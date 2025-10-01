@@ -23,12 +23,15 @@ class NewsAggregator
             try {
                 $articles = $provider->fetch();
 
-                foreach ($articles as $article) {
+                $data = $provider->map($articles);
+
+                foreach ($data as $article) {
                     DB::table('news_articles')->updateOrInsert(     
                         ['provider_id' => $article['provider_id']],
                         $article,
                     );
                 }
+                info('Provider data added');
             } catch (\Throwable $th) {
                 info("Error running insert statement ". $th->getMessage());
             }

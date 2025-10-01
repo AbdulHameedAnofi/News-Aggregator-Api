@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Repositories\NewsArticleRepositoryInterface;
+use App\Enum\NewsSourcesEnum;
 use App\Http\Requests\GetArticlesRequest;
 use App\Http\Resources\NewsArticleResource;
+use App\Services\Providers\NewsAPI;
 use App\Services\Providers\NewYorkTimes;
+use App\Services\Providers\TheGuardian;
 use Illuminate\Support\Facades\Cache;
 
-class ArticlesController extends Controller
+class ArticleController extends Controller
 {
     public function __construct(
         protected NewsArticleRepositoryInterface $repository
@@ -39,5 +42,12 @@ class ArticlesController extends Controller
         });
 
         return $this->success('Authors list', $authors);
+    }
+
+    public function sources()
+    {
+        $sources = NewsSourcesEnum::toArray();
+
+        return $this->success('Sources', $sources);
     }
 }

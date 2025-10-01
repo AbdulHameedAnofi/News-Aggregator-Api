@@ -34,12 +34,16 @@ class NewsAPI implements NewsProviderInterface
                     'from' => date('Y-m-d', strtotime('-1 week')),
                     'to' => date('Y-m-d', strtotime('')),
                     'language' => 'en',
+                    'sortBy' => 'publishedAt'
                     // 'pageSize' => 10
                 ]
             ]
         );
 
-        $response = json_decode($response->getBody(), true)['articles'];
+        return json_decode($response->getBody(), true)['articles'];
+    }
+
+    public function map( array $response): array {
 
         foreach ($response as $article) {
 

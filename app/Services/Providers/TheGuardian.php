@@ -35,8 +35,11 @@ class TheGuardian implements NewsProviderInterface
             ]
         );
         
-        $response = json_decode($response->getBody(), true)['response']['results'];
+        return json_decode($response->getBody(), true)['response']['results'];
+    }
 
+    public function map(array $response): array {
+        
         foreach ($response as $article) {
             $articles[] = [
                 'provider_id' => $article['id'],

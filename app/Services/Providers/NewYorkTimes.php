@@ -30,13 +30,17 @@ class NewYorkTimes implements NewsProviderInterface
                     'language' => 'en',
                     'end_date' => date('Ymd', strtotime('-1 week')),
                     'begin_date' => date('Ymd', strtotime('')),
+                    'sort' => 'newest',
                     'api-key' => $this->api_key
                 ]
             ]
         );
         
-        $response = json_decode($response->getBody(), true)['response']['docs'];
+        return json_decode($response->getBody(), true)['response']['docs'];
+    }
 
+    public function map(array $response): array {
+        
         foreach ($response as $article) {
             $articles[] = [
                 'provider_id' => $article['_id'],
