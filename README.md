@@ -111,8 +111,3 @@ Stores a user’s news preferences (e.g., preferred categories, sources, or auth
 * Sessions for user preferences
 * Advanced filtering (date range, tags)
 * Caching for performance
-
-
-## 🤝 Contributing
-
-Pull requests are welcome! For major changes, open an issue first to discuss what you’d like to change.
