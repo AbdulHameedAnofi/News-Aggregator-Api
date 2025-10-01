@@ -1,18 +1,16 @@
-# 📰 News Aggregator API
+# News Aggregator API
 
 A Laravel-powered API that aggregates news articles from multiple external sources into a single, unified database.  
 It provides endpoints for articles, categories, sources, authors, and user preferences.
 
----
 
-## 📌 Features
+## Features
 - Aggregate news articles from news sources into one database
 - Search and filter articles by category, source, date, and user preferences
 - Store user-specific preferences for personalized results
 
----
 
-## ⚙️ Installation
+## Installation
 
 ### 1. Clone the Repository
 ```bash
@@ -57,7 +55,6 @@ php artisan db:seed
 php artisan serve
 ```
 
----
 
 ## 📡 API Endpoints
 
@@ -73,28 +70,24 @@ Fetches a list of aggregated articles based on users preferences.
 * `source` → filter by source
 * `date` → filter by date
 
----
 
 ### 🔹 Categories
 
 `GET /api/categories`
 Returns a list of unique categories from all aggregated articles.
 
----
 
 ### 🔹 Sources
 
 `GET /api/sources`
 Returns a list of unique article sources.
 
----
 
 ### 🔹 Authors
 
 `GET /api/authors`
 Returns a list of unique authors/bylines.
 
----
 
 ### 🔹 User Preferences
 
@@ -112,7 +105,6 @@ Stores a user’s news preferences (e.g., preferred categories, sources, or auth
 }
 ```
 
----
 
 ## 📝 Roadmap
 
@@ -120,13 +112,11 @@ Stores a user’s news preferences (e.g., preferred categories, sources, or auth
 * [ ] Advanced filtering (date range, tags)
 * [ ] Caching for performance
 
----
 
 ## 🤝 Contributing
 
 Pull requests are welcome! For major changes, open an issue first to discuss what you’d like to change.
 
----
 
 ## 📄 License
 
