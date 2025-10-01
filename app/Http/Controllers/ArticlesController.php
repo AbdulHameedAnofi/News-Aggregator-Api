@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Repositories\NewsArticleRepositoryInterface;
 use App\Http\Requests\GetArticlesRequest;
+use App\Http\Resources\NewsArticleResource;
 use App\Services\Providers\NewYorkTimes;
 use Illuminate\Support\Facades\Cache;
 
@@ -19,7 +20,7 @@ class ArticlesController extends Controller
     {
         $articles = $this->repository->getArticles($request->toArray(), $request->session());
 
-        return $this->success('Articles list', $articles);
+        return $this->success('Articles list', NewsArticleResource::collection($articles));
     }
 
     public function categories()
